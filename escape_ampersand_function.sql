@@ -14,14 +14,14 @@ BEGIN
 
 	DECLARE @intMinHTMLEntity INT;
 
-	WHILE PatIndex('%&[^\s]%', @strSearch) > 0 
+	WHILE PatIndex('%&[^ ^;]%', @strSearch) > 0 
 	BEGIN
-		SET @intCurrentPatIndex = PatIndex('%&[^\s]%', @strSearch);
+		SET @intCurrentPatIndex = PatIndex('%&[^ ^;]%', @strSearch);
 
-		SET @intTwoLetterHTMLEntity = PatIndex('%&[^ ][^ ];%', @strSearch);
-		SET @intThreeLetterHTMLEntity = PatIndex('%&[^ ][^ ][^ ];%', @strSearch);
-		SET @intFourLetterHTMLEntity = PatIndex('%&[^ ][^ ][^ ][^ ];%', @strSearch);
-		SET @intFiveLetterHTMLEntity = PatIndex('%&[^ ][^ ][^ ][^ ];%', @strSearch);
+		SET @intTwoLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;];%', @strSearch);
+		SET @intThreeLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;][^ ^;];%', @strSearch);
+		SET @intFourLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;][^ ^;][^ ^;];%', @strSearch);
+		SET @intFiveLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;][^ ^;][^ ^;];%', @strSearch);
 
 		WITH intHTMLEntities_cte AS (
 			SELECT @intTwoLetterHTMLEntity AS Value 
