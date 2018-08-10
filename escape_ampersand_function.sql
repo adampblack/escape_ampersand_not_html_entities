@@ -14,9 +14,9 @@ BEGIN
 
 	DECLARE @intMinHTMLEntity INT;
 
-	WHILE PatIndex('%&[^ ^;]%', @strSearch) > 0 
+	WHILE PatIndex('%&[^ ]%', @strSearch) > 0 
 	BEGIN
-		SET @intCurrentPatIndex = PatIndex('%&[^ ^;]%', @strSearch);
+		SET @intCurrentPatIndex = PatIndex('%&[^ ]%', @strSearch);
 
 		SET @intTwoLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;];%', @strSearch);
 		SET @intThreeLetterHTMLEntity = PatIndex('%&[^ ^;][^ ^;][^ ^;];%', @strSearch);
