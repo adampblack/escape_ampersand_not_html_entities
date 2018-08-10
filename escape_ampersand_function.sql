@@ -14,6 +14,10 @@ BEGIN
 
 	DECLARE @intMinHTMLEntity INT;
 
+	-- & Symbols we know are not apart of HTML Entities
+	SET @strSearch = REPLACE(@strSearch, ' & ', '&amp;');
+	SET @strSearch = REPLACE(@strSearch, '& ', '&amp;');
+
 	WHILE PatIndex('%&[^ ]%', @strSearch) > 0 
 	BEGIN
 		SET @intCurrentPatIndex = PatIndex('%&[^ ]%', @strSearch);
@@ -59,5 +63,11 @@ BEGIN
 
 	SET @strOutput += @strSearch;
 	
+	-- if & symbol is last character
+	IF(RIGHT(@strOutput, 1) = '&')
+		BEGIN
+			SET @strOutput = SUBSTRING(@strOutput, 1, LEN(@strOutput) - 1) + '&amp;';
+		END
+
 	RETURN @strOutput;
 END
